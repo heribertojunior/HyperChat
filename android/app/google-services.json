@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "251460212497",
+    "project_id": "chatflutter-8acad",
+    "storage_bucket": "chatflutter-8acad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251460212497:android:a13abcc6390dca6eda9eb0",
+        "android_client_info": {
+          "package_name": "com.example.hyperchatt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251460212497-1rovpn0dstvn5i6il7cet6sj1drcd65o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc0Oiu17QX92vIMrmrtVx3UuGhQqa_62o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251460212497-1rovpn0dstvn5i6il7cet6sj1drcd65o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
