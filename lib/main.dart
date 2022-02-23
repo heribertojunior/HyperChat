@@ -7,11 +7,10 @@ import 'home.dart';
 import 'login.dart';
 
 Future<void> main() async {
-/*
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseFirestore.instance
+  /* FirebaseFirestore.instance
       .collection('usuarios')
       .doc('001')
       .set({'nome': 'Heriberto'});*/

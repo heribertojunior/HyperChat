@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hyperchatt/cadastro.dart';
 import 'home.dart';
+import 'model/usuario.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,6 +15,45 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+  String _mensagemErro = "";
+
+  _validarCampos() {
+    String email = _controllerEmail.text;
+    String senha = _controllerSenha.text;
+    if (email.isNotEmpty) {
+      if (email.contains("@")) {
+        if (senha.length > 3) {
+          setState(() {
+            _mensagemErro = "";
+          });
+
+          Usuario usuario = Usuario();
+          usuario.email = email;
+          usuario.senha = senha;
+          _logarUsuario(usuario);
+        } else {
+          setState(() {
+            _mensagemErro = "Digite uma sneha valida";
+          });
+        }
+      } else {
+        setState(() {
+          _mensagemErro = "Email Invalido";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Preencha o Email";
+      });
+    }
+  }
+
+  _logarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +146,15 @@ class _LoginState extends State<Login> {
                         },
                       ));
                     },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Center(
+                    child: Text(
+                      _mensagemErro,
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                 )
               ],

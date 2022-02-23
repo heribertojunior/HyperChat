@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hyperchatt/home.dart';
+import 'package:hyperchatt/model/usuario.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -23,8 +26,15 @@ class _CadastroState extends State<Cadastro> {
       if (email.isNotEmpty) {
         if (email.contains("@")) {
           if (senha.length > 3) {
-            _mensagemErro = "";
-            _cadastrarUsuario();
+            setState(() {
+              _mensagemErro = "";
+            });
+
+            Usuario usuario = Usuario();
+            usuario.email = email;
+            usuario.nome = nome;
+            usuario.senha = senha;
+            _cadastrarUsuario(usuario);
           } else {
             setState(() {
               _mensagemErro = "Digite uma sneha valida";
@@ -47,7 +57,19 @@ class _CadastroState extends State<Cadastro> {
     }
   }
 
-  _cadastrarUsuario(){}
+  _cadastrarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth
+        .createUserWithEmailAndPassword(
+            email: usuario.email, password: usuario.senha)
+        .then((firebaseUser) {
+      Navigator.push(context, MaterialPageRoute(builder: (contexr) => Home()));
+    }).catchError((error) {
+      setState(() {
+        _mensagemErro = "erro ao cadastrar";
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
