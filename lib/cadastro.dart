@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hyperchatt/home.dart';
 import 'package:hyperchatt/model/usuario.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -63,7 +64,12 @@ class _CadastroState extends State<Cadastro> {
         .createUserWithEmailAndPassword(
             email: usuario.email, password: usuario.senha)
         .then((firebaseUser) {
-      Navigator.push(context, MaterialPageRoute(builder: (contexr) => Home()));
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      db
+          .collection("usuarios")
+          .doc(firebaseUser.user?.uid)
+          .set(usuario.toMap());
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (contexr) => Home()));
     }).catchError((error) {
       setState(() {
         _mensagemErro = "erro ao cadastrar";

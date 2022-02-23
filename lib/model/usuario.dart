@@ -7,6 +7,15 @@ class Usuario {
 
   Usuario();
 
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      "nome": this._nome,
+      "email": this._email,
+      "senha": this._senha,
+    };
+    return map;
+  }
+
   String get nome => _nome!;
 
   set nome(String value) {

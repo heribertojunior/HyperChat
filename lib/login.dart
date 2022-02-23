@@ -52,6 +52,36 @@ class _LoginState extends State<Login> {
 
   _logarUsuario(Usuario usuario) {
     FirebaseAuth auth = FirebaseAuth.instance;
+    auth
+        .signInWithEmailAndPassword(
+            email: usuario.email, password: usuario.senha)
+        .then((firebaseUser) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Home()));
+    }).catchError((error) {
+      setState(() {
+        _mensagemErro =
+            "erro ao autenticar usuario verifique e tente novamente";
+      });
+    });
+  }
+
+  Future _verificaUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    //auth.signOut();
+    User? usuariolog = await auth.currentUser;
+    //User? usuarioLogado = await FirebaseAuth.instance.currentUser;
+    if (usuariolog != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Home()));
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _verificaUsuarioLogado();
+    super.initState();
   }
 
   @override
@@ -76,6 +106,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8, left: 32, right: 32),
                   child: TextField(
+                    controller: _controllerEmail,
                     autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 20),
@@ -92,6 +123,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8, left: 32, right: 32),
                   child: TextField(
+                    controller: _controllerSenha,
                     obscureText: true,
                     keyboardType: TextInputType.visiblePassword,
                     style: TextStyle(fontSize: 20),
@@ -128,7 +160,7 @@ class _LoginState extends State<Login> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32)),
                       onPressed: () {
-                        //alidarCampos();
+                        _validarCampos();
                       },
                     ),
                   ),
