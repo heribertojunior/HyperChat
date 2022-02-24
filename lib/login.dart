@@ -56,8 +56,7 @@ class _LoginState extends State<Login> {
         .signInWithEmailAndPassword(
             email: usuario.email, password: usuario.senha)
         .then((firebaseUser) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.pushReplacementNamed(context, "/home");
     }).catchError((error) {
       setState(() {
         _mensagemErro =
@@ -72,8 +71,7 @@ class _LoginState extends State<Login> {
     User? usuariolog = await auth.currentUser;
     //User? usuarioLogado = await FirebaseAuth.instance.currentUser;
     if (usuariolog != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.pushReplacementNamed(context, "/home");
     }
   }
 
@@ -88,7 +86,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: Color(0xff0B567C)),
+        decoration: BoxDecoration(color: Colors.white),
         padding: EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -107,14 +105,13 @@ class _LoginState extends State<Login> {
                   padding: EdgeInsets.only(bottom: 8, left: 32, right: 32),
                   child: TextField(
                     controller: _controllerEmail,
-                    autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 20),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "E-mail",
                       filled: true,
-                      fillColor: Color(0xffC2F6E8),
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)),
                     ),
@@ -131,7 +128,7 @@ class _LoginState extends State<Login> {
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "Senha",
                       filled: true,
-                      fillColor: Color(0xffC2F6E8),
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)),
                     ),
@@ -166,18 +163,17 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Center(
-                  child: GestureDetector(
-                    child: Text(
-                      "Não tem conta? Cadastre-se",
-                      style: TextStyle(color: Colors.white),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: GestureDetector(
+                      child: Text(
+                        "Não tem conta? Cadastre-se",
+                        style: TextStyle(color: Color(0xff00BFFF)),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/cadastro");
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return Cadastro();
-                        },
-                      ));
-                    },
                   ),
                 ),
                 Padding(
@@ -185,7 +181,7 @@ class _LoginState extends State<Login> {
                   child: Center(
                     child: Text(
                       _mensagemErro,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Color(0xff00BFFF)),
                     ),
                   ),
                 )

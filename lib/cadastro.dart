@@ -69,7 +69,8 @@ class _CadastroState extends State<Cadastro> {
           .collection("usuarios")
           .doc(firebaseUser.user?.uid)
           .set(usuario.toMap());
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (contexr) => Home()));
+      Navigator.pushNamedAndRemoveUntil(context, "/home", (_) => false);
+      //Navigator.pushReplacementNamed(context, "/home");
     }).catchError((error) {
       setState(() {
         _mensagemErro = "erro ao cadastrar";
@@ -81,11 +82,14 @@ class _CadastroState extends State<Cadastro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cadastro"),
-        backgroundColor: Color(0xff0B567C),
+        iconTheme: IconThemeData(color: Color(0xff00BFFF)),
+        foregroundColor: Colors.white,
+        title: Text("Cadastro", style: TextStyle(color: Color(0xff00BFFF))),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.white,
       ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xff0B567C)),
+        decoration: BoxDecoration(color: Colors.white),
         padding: EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -103,14 +107,13 @@ class _CadastroState extends State<Cadastro> {
                   padding: EdgeInsets.only(bottom: 16, left: 32, right: 32),
                   child: TextField(
                     controller: _controllerNome,
-                    autofocus: true,
                     keyboardType: TextInputType.text,
                     style: TextStyle(fontSize: 20),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "Nome",
                       filled: true,
-                      fillColor: Color(0xffC2F6E8),
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)),
                     ),
@@ -126,7 +129,7 @@ class _CadastroState extends State<Cadastro> {
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "E-mail",
                       filled: true,
-                      fillColor: Color(0xffC2F6E8),
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)),
                     ),
@@ -143,7 +146,7 @@ class _CadastroState extends State<Cadastro> {
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "Senha",
                       filled: true,
-                      fillColor: Color(0xffC2F6E8),
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)),
                     ),
